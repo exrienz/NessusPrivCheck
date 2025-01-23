@@ -1,0 +1,2 @@
+# NessusPrivCheck
+Automate privilege checking
