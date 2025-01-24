@@ -255,7 +255,7 @@ EOT;
             <div class="col-lg-8 col-md-10">
                 <div class="card shadow-sm">
                     <div class="card-header bg-primary text-white">
-                        <h3 class="card-title mb-0">PrivCheck Audit File Generator</h3>
+                    <h3 class="card-title mb-0" style="color: white;">Unix PrivCheck Audit File Generator (<a href="index.php" style="color: white;">Unix</a> | <a href="windows.php" style="color: white;">Windows</a>)</h3>
                     </div>
                     <div class="card-body">
                         <form method="POST" id="auditForm">
