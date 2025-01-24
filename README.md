@@ -13,7 +13,7 @@ To automate the privilege escalation checking process, use the following steps t
 
 2. **Run the Docker Container**:  
    ```bash
-   docker run -d -p 8181:80 --name audit-app php-audit-app
+   docker run -d -p 8181:80 --restart=always --name audit-app php-audit-app
    ```
 
 3. **Access the Application**:  
