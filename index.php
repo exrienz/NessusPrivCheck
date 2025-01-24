@@ -201,6 +201,36 @@ EOT;
     expect         : "^[vp](?:cbj|bgr)(?:inf|rpp|its|slbt|rpphap|fpx|dda|dwh|ecm|fir|ibg|ddt|jom).*0[1-9][pus]$"
     solution       : "Update hostname to match required convention"
 </custom_item>
+
+<custom_item>
+  type                : FILE_CONTENT_CHECK
+  description         : "18.0 Ensure no untrusted certificates are installed"
+  file                : "/etc/ssl/certs/"
+  regex               : ".*"
+  expect              : ""
+  info                : "Checks all certificate files in /etc/ssl/certs for review by IT security. No specific assumptions about untrusted certificates."
+  solution            : "IT security should manually review all certificates in /etc/ssl/certs/ to identify untrusted certificates."
+</custom_item>
+
+<custom_item>
+  type                : CMD_EXEC
+  description         : "19.0 Verify CA certificates are from trusted sources"
+  command             : "openssl verify -CAfile /etc/ssl/certs/ca-bundle.crt /etc/ssl/certs/*.crt"
+  expect              : ""
+  info                : "Runs the openssl verify command to check the validity of all certificates. IT security should manually review the output for certificates from untrusted sources."
+  solution            : "Replace any CA certificates that are invalid or from untrusted sources after manual verification."
+</custom_item>
+
+
+<custom_item>
+  type                : FILE_CONTENT_CHECK
+  description         : "20.0 Check truststore configuration in /etc/ssl/"
+  file                : "/etc/ssl/openssl.cnf"
+  regex               : "CApath[[:space:]]*="
+  expect              : ""
+  info                : "Checks the CApath configuration in /etc/ssl/openssl.cnf. IT security must manually verify that it points to '/etc/ssl/certs' or the appropriate truststore path."
+  solution            : "Ensure the 'CApath' in /etc/ssl/openssl.cnf is correctly set to the truststore directory."
+</custom_item>
 EOT;
 
     // Serve the file as a download
@@ -233,7 +263,7 @@ EOT;
                             <div class="mb-4">
                                 <label for="audit_file_name" class="form-label fw-semibold">Audit File Name</label>
                                 <input type="text" class="form-control" id="audit_file_name" name="audit_file_name" 
-                                       placeholder="Enter a name for your audit file" required>
+                                       placeholder="Enter a name for your audit file, e.g. CR Number" required>
                                 <div class="form-text">Use only alphanumeric characters, underscores, or dashes.</div>
                             </div>
 
